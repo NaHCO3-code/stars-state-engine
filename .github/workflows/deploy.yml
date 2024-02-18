@@ -38,14 +38,17 @@ jobs:
       - name: build
         run: |
           yarn
-          yarn build
+          yarn build   
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: dist
-          
+
+      - name: Setup pages
+        uses: actions/configure-pages@v4 
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
