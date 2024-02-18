@@ -31,11 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
 
-      - name: etup Node.js environment
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.2
 
       - name: build
@@ -47,7 +44,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'dict'
+          path: dist
           
       - name: Deploy to GitHub Pages
         id: deployment
