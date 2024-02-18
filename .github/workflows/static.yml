@@ -40,8 +40,8 @@ jobs:
           yarn
           yarn build
           
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.1
         with:
-          folder: dist
-          branch: gh-pages
+          # A file, directory or wildcard pattern that describes what to upload
+          path: dist
