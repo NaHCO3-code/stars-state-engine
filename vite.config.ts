@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: "/node-magician",
+  base: "/muti-body",
   build:{
     outDir: "docs",
   },
