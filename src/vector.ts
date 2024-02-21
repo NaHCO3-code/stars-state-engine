@@ -49,3 +49,11 @@ export class Vector2{
     return new Vector2(v.x * n, v.y * n);
   }
 }
+
+export function randomInt(min: number, max: number){
+  return min + Math.floor(Math.random()*(max-min));
+}
+
+export function randomFloat(min: number, max: number){
+  return min + Math.random()*(max-min);
+}

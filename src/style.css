@@ -6,6 +6,7 @@
 :root{
   background-color: #242424;
   color: #f2f2f2;
+  --main-color: #336699;
 }
 
 .body{
@@ -20,9 +21,10 @@
   position: fixed;
   top: var(--y);
   left: var(--x);
+  z-index: 0;
 }
 
-#body1{
+/* #body1{
   border-radius: 50%;
   width: 100px;
   height: 200px;
@@ -32,19 +34,20 @@
   top: 100px;
   left: 100px;
   rotate: 20deg;
-}
+} */
 
-#settings{
+.settings{
   width: fit-content;
   padding: 5px;
-  margin: 5px;
-
-  max-width: 20%;
-  box-shadow: 0px 0px 2px #f2f2f2;
-  border-radius: 2px;
+  z-index: 10;
 }
 
-#settings div{
-  border-top: 2px solid #336699;
-  padding-top: 5px
+.setting {
+  border: 1px solid var(--main-color);
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.setting .title {
+  font-size: 20px;
 }

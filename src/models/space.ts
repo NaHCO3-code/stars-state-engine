@@ -3,28 +3,33 @@ import { Body } from "./body";
 
 export class Space{
   bodies: Body[] = [];
+  windowSize: Vector2;
+
+  constructor(windowSize: Vector2){
+    this.windowSize = windowSize;
+  }
 
   add<T extends Body>(body: T){
     this.bodies.push(body);
   }
 
   update(){
-    for(let i of this.bodies){
-      for(let j of this.bodies){
+    for(const i of this.bodies){
+      for(const j of this.bodies){
         if(i === j){
           continue;
         }
         i.updateVelocity(j);
       }
     }
-    for(let i of this.bodies){
+    for(const i of this.bodies){
       i.updatePosition();
     }
   }
 
   draw(basis: Vector2, offset: Vector2){
-    for(let i of this.bodies){
-      i.draw(basis, offset);
+    for(const i of this.bodies){
+      i.draw(basis, offset, this.windowSize);
     }
   }
 
@@ -45,7 +50,7 @@ export class Space{
       center.add(Vector2.stretch(i.position, Math.pow(i.mass, Math.E)));
       r += Math.pow(i.mass, Math.E);
     }
-    return center.stretch(1 / r)
+    return center.stretch(1 / r);
   }
 
   get center(){

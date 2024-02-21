@@ -7,14 +7,12 @@
   </head>
   <body>
     <div id="app">
-      <!-- <div id="settings">
-        <p>设置</p>
-        <div id="speed">
-          <p class="title">速度</p>  
-          <input id="speed-input" type="range" value="0" min="0" max="50"/>
-          <p id="speed-value">0x</p>
-        </div>        
-      </div> -->
+      <div class="settings">
+        <div class="setting">
+          <p class="title">时间加速</p>
+          <label for="speed">速度</label><input type="number" min="0" value="1" id="speed" />
+        </div>
+      </div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>

@@ -25,5 +25,5 @@ export abstract class Body{
     this.position.add(this.velocity);
   }
 
-  abstract draw(basis: Vector2, offset: Vector2): void;
+  abstract draw(basis: Vector2, offset: Vector2, windowSize: Vector2): void;
 }
