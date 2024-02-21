@@ -1,4 +1,4 @@
-import { Vector2 } from "./vector"
+import { Vector2, randomFloat, randomInt } from "./vector"
 import { Planet } from './models/planet'
 import { Space } from "./models/space"
 import { settings } from "./view/setting";
@@ -21,15 +21,15 @@ space.add(
   ) 
 );
 
-// for(let i=0; i<100; ++i){
-//   space.add(
-//     new Planet(
-//       new Vector2(randomInt(-5000, 5000), randomInt(-5000, 5000)), 
-//       randomFloat(1,20),
-//       new Vector2(randomFloat(-3, 3), randomFloat(-3, 3))
-//     ) 
-//   );
-// }
+for(let i=0; i<0; ++i){
+  space.add(
+    new Planet(
+      new Vector2(randomInt(-5000, 5000), randomInt(-5000, 5000)), 
+      randomFloat(1,20),
+      new Vector2(randomFloat(-3, 3), randomFloat(-3, 3))
+    ) 
+  );
+}
 
 setInterval(()=>{
   for(let i=0; i<settings.speed; ++i){
