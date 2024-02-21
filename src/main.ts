@@ -1,4 +1,4 @@
-import { Vector2, randomFloat, randomInt } from "./vector"
+import { Vector2 } from "./vector"
 import { Planet } from './models/planet'
 import { Space } from "./models/space"
 import { settings } from "./view/setting";
