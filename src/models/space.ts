@@ -1,8 +1,8 @@
 import { Body } from "./body";
-import { Painter } from "./painter";
+import { PaintStyle, Painter } from "./painter";
 
 export class Space{
-  bodies: Map<Body, Painter>;
+  bodies: Map<Body, {painter: Painter, paintStyle: PaintStyle}>;
 
   G = 1;
 
@@ -10,8 +10,8 @@ export class Space{
     this.bodies = new Map();
   }
 
-  addBody<T extends Body, U extends Painter>(body: T, painter: U){
-    this.bodies.set(body, painter);
+  addBody(body: Body, painter: Painter, paintStyle: PaintStyle){
+    this.bodies.set(body, {painter, paintStyle});
     body.G = this.G;
   }
 
@@ -33,8 +33,8 @@ export class Space{
   }
 
   paint(){
-    for(let [body, painter] of this.bodies){
-      painter.paint(body);
+    for(let [body, {painter, paintStyle}] of this.bodies){
+      painter.paint(body, paintStyle);
     }
   }
 

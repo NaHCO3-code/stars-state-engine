@@ -1,18 +1,22 @@
 import { Vector2 } from "../vector";
 import { Body } from "./body";
-import { Painter } from "./painter";
+import { PaintStyle, Painter, ViewConf } from "./painter";
+
+export interface PlanetPaintStyle extends PaintStyle{
+  color: string;
+}
 
 export class PlanetPainter extends Painter{
   offset: Vector2;
   elCache: Map<Body, HTMLDivElement>;
 
-  constructor(windowSize: Vector2, lenScale: number, sizeScale: number){
-    super(windowSize, lenScale, sizeScale);
+  constructor(conf: ViewConf){
+    super(conf);
     this.offset = Vector2.stretch(this.windowSize, 1 / 2);
     this.elCache = new Map();
   }
 
-  paint(body: Body){
+  paint(body: Body, conf: PlanetPaintStyle){
     const drawSize = body.mass * this.sizeScale * this.lenScale;
     const drawPos = Vector2
       .reduce(body.position, this.cameraPos)
@@ -40,5 +44,7 @@ export class PlanetPainter extends Painter{
     el?.style.setProperty("--x", `${drawPos.x}px`);
     el?.style.setProperty("--y", `${drawPos.y}px`);
     el?.style.setProperty("--size", `${Math.max(drawSize, 10)}px`);
+
+    el?.style.setProperty("background-color", conf.color);
   }
 }
