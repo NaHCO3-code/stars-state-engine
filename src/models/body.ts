@@ -1,11 +1,11 @@
 import { Vector2 } from "../vector";
 
-export abstract class Body{
+export class Body{
   position: Vector2
   mass: number
   velocity: Vector2
 
-  static G = 0.1
+  G = 0.1;
 
   constructor(pos: Vector2, mass: number, velocity: Vector2){
     this.position = pos;
@@ -13,17 +13,18 @@ export abstract class Body{
     this.velocity = velocity;
   }
 
-  updateVelocity(other: Body){    
+  calcEffect(other: Body){
+    const distance2 = Vector2.distance2(this.position, other.position);
+    const distance3 = distance2 * Math.sqrt(distance2);
+
     this.velocity.add(
       Vector2
         .reduce(other.position, this.position)
-        .stretch(Body.G * other.mass / Math.pow(Vector2.distance(this.position, other.position), 2))
+        .stretch(this.G * other.mass / distance3)
     );
   }
 
   updatePosition(){
     this.position.add(this.velocity);
   }
-
-  abstract draw(basis: Vector2, offset: Vector2, windowSize: Vector2): void;
 }

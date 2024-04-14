@@ -19,35 +19,7 @@
   background-color: #336699;
   border-radius: 50%;
   position: fixed;
-  top: var(--y);
-  left: var(--x);
+  top: calc( var(--y) - ( var(--size) / 2 ) );
+  left: calc( var(--x) - ( var(--size) / 2 ) );
   z-index: 0;
-}
-
-/* #body1{
-  border-radius: 50%;
-  width: 100px;
-  height: 200px;
-  border: 2px solid #f2f2f2;
-  
-  position: fixed;
-  top: 100px;
-  left: 100px;
-  rotate: 20deg;
-} */
-
-.settings{
-  width: fit-content;
-  padding: 5px;
-  z-index: 10;
-}
-
-.setting {
-  border: 1px solid var(--main-color);
-  border-radius: 3px;
-  padding: 5px;
-}
-
-.setting .title {
-  font-size: 20px;
 }

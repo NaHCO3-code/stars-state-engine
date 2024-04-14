@@ -3,25 +3,31 @@ import { Vector2 } from "../vector";
 
 export class Planet extends Body{
   element: HTMLDivElement
-  spaceScale: number
+  lenScale: number
   sizeScale: number
 
   constructor(pos: Vector2, mass: number, velocity: Vector2){
     super(pos, mass, velocity);
     
-    this.spaceScale = 1/5;
-    this.sizeScale = 50;
+    this.lenScale = 1;
+    this.sizeScale = 1;
+
     this.element = document.createElement("div");
     this.element.setAttribute("class", "body");
 
     document.getElementById("app")?.appendChild(this.element);
   }
 
+  setScale(lenScale: number, sizeScale: number){
+    this.lenScale = lenScale;
+    this.sizeScale = sizeScale;
+  }
+
   draw(basis: Vector2, offset: Vector2, windowSize: Vector2){
-    const drawSize = this.mass * this.sizeScale * this.spaceScale;
+    const drawSize = this.mass * this.sizeScale * this.lenScale;
     const drawPos = Vector2
       .reduce(this.position, basis)
-      .stretch(this.spaceScale)
+      .stretch(this.lenScale)
       .add(offset)
       .reduce(new Vector2(drawSize, drawSize).stretch(1/2));
 

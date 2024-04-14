@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: "/muti-body",
+  base: "/stars-state-engine",
   build:{
     outDir: "docs",
   },

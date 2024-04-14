@@ -30,15 +30,31 @@ export class Vector2{
   }
 
   distance(v: Vector2){
-    return Math.sqrt(Math.pow(this.x - v.x, 2) + Math.pow(this.y - v.y, 2));
+    return Math.sqrt((this.x - v.x)**2 + (this.y - v.y)**2);
   }
+
+  normalize(){
+    const len = this.length;
+    this.x /= len;
+    this.y /= len;
+    return this;
+  }
+
+  get length(){
+    return Math.sqrt(this.x**2 + this.y**2);
+  }
+
 
   static add(u: Vector2, v: Vector2){
     return new Vector2(u.x + v.x, u.y + v.y);
   }
 
   static distance(u: Vector2, v: Vector2){
-    return Math.sqrt(Math.pow(u.x - v.x, 2) + Math.pow(u.y - v.y, 2));
+    return Math.sqrt((u.x - v.x)**2 + (u.y - v.y)**2);
+  }
+
+  static distance2(u: Vector2, v: Vector2){
+    return (u.x - v.x)**2 + (u.y - v.y)**2;
   }
 
   static reduce(u: Vector2, v: Vector2){

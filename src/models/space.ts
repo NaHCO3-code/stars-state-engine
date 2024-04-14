@@ -1,63 +1,63 @@
-import { Vector2 } from "../vector";
 import { Body } from "./body";
+import { Painter } from "./painter";
 
 export class Space{
-  bodies: Body[] = [];
-  windowSize: Vector2;
+  bodies: Map<Body, Painter>;
 
-  constructor(windowSize: Vector2){
-    this.windowSize = windowSize;
+  G = 1;
+
+  constructor(){
+    this.bodies = new Map();
   }
 
-  add<T extends Body>(body: T){
-    this.bodies.push(body);
+  addBody<T extends Body, U extends Painter>(body: T, painter: U){
+    this.bodies.set(body, painter);
+    body.G = this.G;
   }
 
-  update(){
-    for(const i of this.bodies){
-      for(const j of this.bodies){
-        if(i === j){
+  calcEffect(){
+    for(let b1 of this.bodies.keys()){
+      for(let b2 of this.bodies.keys()){
+        if(b1 === b2){
           continue;
         }
-        i.updateVelocity(j);
+        b1.calcEffect(b2);
       }
     }
-    for(const i of this.bodies){
-      i.updatePosition();
+  }
+
+  updatePositions(){
+    for(let b of this.bodies.keys()){
+      b.updatePosition();
     }
   }
 
-  draw(basis: Vector2, offset: Vector2){
-    for(const i of this.bodies){
-      i.draw(basis, offset, this.windowSize);
+  paint(){
+    for(let [body, painter] of this.bodies){
+      painter.paint(body);
     }
   }
 
-  get massCenter(){
-    let center = new Vector2(0, 0);
-    let mass = 0;
-    for(let i of this.bodies){
-      center.add(Vector2.stretch(i.position, i.mass));
-      mass += i.mass
-    }
-    return center.stretch(1 / mass)
-  }
+  run(conf: runConf){
+    setInterval(()=>{
+      for(let i = 0; i < conf.speed; i++){
 
-  get visualCenter(){
-    let center = new Vector2(0, 0);
-    let r = 0;
-    for(let i of this.bodies){
-      center.add(Vector2.stretch(i.position, Math.pow(i.mass, Math.E)));
-      r += Math.pow(i.mass, Math.E);
-    }
-    return center.stretch(1 / r);
+        this.calcEffect();
+        this.updatePositions();
+      }
+      conf.calcHandle?.call(this);
+    }, conf.calcDelay);
+    setInterval(()=>{
+      this.paint();
+      conf.paintHandle?.call(this);
+    }, conf.paintDelay);
   }
+}
 
-  get center(){
-    let center = new Vector2(0, 0);
-    for(let i of this.bodies){
-      center.add(i.position);
-    }
-    return center.stretch(1 / this.bodies.length);
-  }
+interface runConf{
+  calcDelay: number, 
+  paintDelay: number, 
+  speed: number,
+  calcHandle?: ()=>void, 
+  paintHandle?: ()=>void
 }

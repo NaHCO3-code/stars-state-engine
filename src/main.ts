@@ -1,39 +1,25 @@
-import { Vector2, randomFloat, randomInt } from "./vector"
-import { Planet } from './models/planet'
-import { Space } from "./models/space"
-import { settings } from "./view/setting";
+import { Body } from "./models/body";
+import { PlanetPainter } from "./models/planetPainter";
+import { Space } from "./models/space";
+import { Vector2 } from "./vector";
 
-let space = new Space(new Vector2(window.innerWidth, window.innerHeight));
+const windowSize = new Vector2(window.innerWidth, window.innerHeight);
 
-space.add(
-  new Planet(
-    new Vector2(0, 0),
-    3,
-    new Vector2(0, 0)
-  )
-);
+const space = new Space();
+const painter = new PlanetPainter(windowSize, 0.4, 10);
+const body1 = new Body(new Vector2(0, 0), 10, new Vector2(0, 0));
+const body2 = new Body(new Vector2(300, 0), 0.1, new Vector2(0, 0.1));
+const body3 = new Body(new Vector2(600, 0), 0.1, new Vector2(0, 0.15));
 
-space.add(
-  new Planet(
-    new Vector2(200, 200), 
-    1,
-    new Vector2(0, 1)
-  ) 
-);
+space.addBody(body1, painter);
+space.addBody(body2, painter);
+space.addBody(body3, painter);
 
-for(let i=0; i<0; ++i){
-  space.add(
-    new Planet(
-      new Vector2(randomInt(-5000, 5000), randomInt(-5000, 5000)), 
-      randomFloat(1,20),
-      new Vector2(randomFloat(-3, 3), randomFloat(-3, 3))
-    ) 
-  );
-}
-
-setInterval(()=>{
-  for(let i=0; i<settings.speed; ++i){
-    space.update();
-  }
-  space.draw(space.visualCenter, new Vector2(window.innerWidth/2, window.innerHeight/2));
-}, 1);
+space.run({
+  calcDelay: 0,
+  paintDelay: 0,
+  speed: 10,
+  paintHandle() {
+    painter.setCameraPos(body1.position)
+  },
+});
