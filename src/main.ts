@@ -11,8 +11,12 @@ const painter = new PlanetPainter({
   lenScale: 0.1,
   sizeScale: 1
 });
+
 const red: PlanetPaintStyle = {
   color: "#ff7b00",
+}
+const green: PlanetPaintStyle = {
+  color: "#00cc00",
 }
 const blue: PlanetPaintStyle = {
   color: "#336699",
@@ -20,11 +24,13 @@ const blue: PlanetPaintStyle = {
 
 const sun = new Body(new Vector2(0, 0), 1000, new Vector2(0, 0));
 const planet1 = new Body(new Vector2(1000, 0), 10, new Vector2(0, 1));
+const planet2 = new Body(new Vector2(-4000, 0), 0.1, new Vector2(0, 0.25));
 const planet3 = new Body(new Vector2(3000, 0), 10, new Vector2(0, 0.6));
 const craft = new Body(new Vector2(3080, 0), 0.001, new Vector2(0, 1));
 
 space.addBody(sun, painter, red);
 space.addBody(planet1, painter, red);
+space.addBody(planet2, painter, green);
 space.addBody(planet3, painter, red);
 space.addBody(craft, painter, blue);
 
